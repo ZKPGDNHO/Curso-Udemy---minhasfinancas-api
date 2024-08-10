@@ -1,6 +1,5 @@
 package com.zk.minhasfinancas.model.entity;
 
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -9,45 +8,59 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import javax.persistence.*;
 
-
 @Entity
-@Table(name="lancamento", schema="financas")
+@Table(name = "lancamento", schema = "financas")
 public class Lancamentos {
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
-	
-	@Column(name="descricao")
+
+	@Column(name = "descricao")
 	private String descricao;
-	
-	@Column(name="mes")
+
+	@Column(name = "mes")
 	private Integer mes;
-	
-	
-	@Column(name="ano")
+
+	@Column(name = "ano")
 	private Integer ano;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_usuario")
+	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
-	
-	@Column(name="valor")
+
+	@Column(name = "valor")
 	private BigDecimal valor;
-	
-	@Column(name="data_cadastro")
+
+	@Column(name = "data_cadastro")
 	@Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
 	private LocalDate dataCadastro;
-	
-	@Column(name="tipo")
+
+	@Column(name = "tipo")
 	@Enumerated(value = EnumType.STRING)
 	private TipoLancamento tipo;
-	
-	@Column(name="status")
+
+	@Column(name = "status")
 	@Enumerated(value = EnumType.STRING)
 	private StatusLancamento status;
-	
-//Getters e Setters
+
+	public Lancamentos(Long id, String descricao, Integer mes, Integer ano, Usuario usuario, BigDecimal valor,
+			LocalDate dataCadastro, TipoLancamento tipo, StatusLancamento status) {
+		this.id = id;
+		this.descricao = descricao;
+		this.mes = mes;
+		this.ano = ano;
+		this.usuario = usuario;
+		this.valor = valor;
+		this.dataCadastro = dataCadastro;
+		this.tipo = tipo;
+		this.status = status;
+	}
+
+	public Lancamentos() {
+	}
+
+	// Getters e Setters
 	public Long getId() {
 		return id;
 	}
@@ -146,6 +159,5 @@ public class Lancamentos {
 				+ usuario + ", valor=" + valor + ", dataCadastro=" + dataCadastro + ", tipo=" + tipo + ", status="
 				+ status + "]";
 	}
-	
-	
+
 }
